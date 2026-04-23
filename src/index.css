@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+/* smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* reusable button styles (v4 way) */
+.btn-primary {
+  @apply px-6 py-3 bg-blue-600 rounded-lg hover:bg-blue-700 transition;
+}
+
+.btn-outline {
+  @apply px-6 py-3 border border-gray-600 rounded-lg hover:bg-gray-800 transition;
+}
