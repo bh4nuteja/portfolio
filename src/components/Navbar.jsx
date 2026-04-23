@@ -1,38 +1,49 @@
-import { motion } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Navbar() {
-  return (
-    <motion.nav
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className="fixed top-0 w-full bg-black/60 backdrop-blur-lg border-b border-gray-800 z-50"
-    >
-      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold tracking-wide">Bhanu Teja</h1>
+  const location = useLocation();
 
-        <div className="space-x-6 text-gray-300">
-          <a href="#home" className="hover:text-white transition">Home</a>
-          <a href="#projects" className="hover:text-white transition">Projects</a>
-          <a href="#contact" className="hover:text-white transition">Contact</a>
-          <a
-             href="/resume.pdf"
-             target="_blank"
-             className="px-4 py-2 border border-gray-600 rounded-lg hover:bg-gray-800 transition"
-                  >
-            Resume</a>
+  const linkClass = (path) =>
+    `transition ${
+      location.pathname === path
+        ? "text-blue-400"
+        : "text-gray-300 hover:text-white"
+    }`;
+
+  return (
+    <nav className="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-lg border-b border-white/10">
+
+      <div className="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
+
+        {/* Logo */}
+        <h1 className="text-xl font-bold text-white">
+          Bhanu<span className="text-blue-400">.dev</span>
+        </h1>
+
+        {/* Links */}
+        <div className="flex gap-6 text-sm font-medium">
+
+          <a href="#home" className="hover:text-blue-400">Home</a>
+          <a href="#projects" className="hover:text-blue-400">Projects</a>
+          <a href="#skills" className="hover:text-blue-400">Skills</a>
+          <a href="#contact" className="hover:text-blue-400">Contact</a>
+
+          <Link to="/login" className={linkClass("/login")}>
+            Admin
+          </Link>
+
         </div>
+
       </div>
-    </motion.nav>
-    
+    </nav>
   );
 }
-<button
-  onClick={() => {
-    localStorage.removeItem("token");
-    window.location.href = "/login";
-  }}
-  className="text-red-400"
->
-  Logout
-</button>
+
+window.addEventListener("scroll", () => {
+  const nav = document.querySelector("nav");
+  if (window.scrollY > 50) {
+    nav.classList.add("bg-black/80");
+  } else {
+    nav.classList.remove("bg-black/80");
+  }
+});
